@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./cotacoes.db:/app/cotacoes.db
+    depends_on:
+      - db
+
+  db:
+    image: nouchka/sqlite3
+    container_name: sqlite3
+    volumes:
+      - ./cotacoes.db:/data/cotacoes.db
+    command: ["/bin/sh", "-c", "sleep infinity"]
